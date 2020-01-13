@@ -52,7 +52,6 @@ def select_option(enemy_option):
 
 def enemy_option():
     return random.randint(1, 3)
-    # return 2
 
 def attack(attacker, defender, defend):
     defender_defense = defender['def'] if defend == True else 0
@@ -106,12 +105,23 @@ def check():
     
     if enemy['life'] <= 0:
         global player_respond, enemy_respond
-        print("enemy killed")
+        print("Enemy Killed")
         player_respond = ""
         enemy_respond = ""
         player['lvl'] += 1
+        player['life'] = player['maxLife']
         save()
+        show_mainMenu()
+
+def show_mainMenu():
+    print("Main Menu")
+    menuOption = raw_input("Continue(1) Exit(2): ")
+    if menuOption == "1":
         set_enemy()
+    elif menuOption == "2":
+        sys.exit()
+    else:
+        show_mainMenu()
 
 def save():
     text = open("text.txt", "w")
@@ -124,7 +134,6 @@ def save():
 
 set_enemy()
 while True:
-    print(player['lvl'])
     show_status()
     eo = enemy_option()
     select_option(eo)
