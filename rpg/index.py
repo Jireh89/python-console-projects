@@ -4,7 +4,7 @@ try:
     text = open("text.txt")
 except:
     text = open("text.txt", "w")
-    name = raw_input("name: ") 
+    name = input("name: ") 
     text.write("name=" + name)
     text.write("\natk=5")
     text.write("\ndef=5")
@@ -36,17 +36,17 @@ def show_status():
     print("Life: %s Attack: %s Defense: %s" %(enemy['life'], enemy['atk'], enemy['def'])) 
 
 def select_option(enemy_option):
-    option = raw_input("Options (1)atk, (2)def, (3)regen: ")
+    option = input("Options (1)atk, (2)def, (3)regen: ")
 
     try:
         option = int(option)
-    except ValueError:
-        print("Invalid option")
-        select_option(enemy_option)
+        if option < 4 and option > 0:
+            play_process(option, enemy_option)
+        else:
+            print("Invalid option")
+            select_option(enemy_option)
 
-    if option < 4 and option > 0:
-        play_process(option, enemy_option)
-    else:
+    except ValueError:
         print("Invalid option")
         select_option(enemy_option)
 
@@ -115,7 +115,7 @@ def check():
 
 def show_mainMenu():
     print("Main Menu")
-    menuOption = raw_input("Continue(1) Exit(2): ")
+    menuOption = input("Continue(1) Exit(2): ")
     if menuOption == "1":
         set_enemy()
     elif menuOption == "2":
